@@ -71,7 +71,8 @@ resource random_id "app-server-id" {
 }
 
 resource aws_internet_gateway "hashicat" {
-  vpc_id = aws_vpc.hashicat.id
+  # vpc_id = aws_vpc.hashicat.id
+  vpc_id = module.vpc.vpc_id
 
   tags = {
     Name = "${var.prefix}-internet-gateway"
