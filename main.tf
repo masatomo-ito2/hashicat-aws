@@ -15,7 +15,9 @@ resource aws_vpc "hashicat" {
 */
   
 resource aws_subnet "hashicat" {
-  vpc_id     = aws_vpc.hashicat.id
+  // vpc_id     = aws_vpc.hashicat.id
+  vpc_id = module.vpc.vpc_id
+    
   cidr_block = var.subnet_prefix
 
   tags = {
@@ -27,7 +29,7 @@ resource aws_security_group "hashicat" {
   name = "${var.prefix}-security-group"
 
   # vpc_id = aws_vpc.hashicat.id
-  vpc_id = module.vpc.id
+  vpc_id = module.vpc.vpc_id
 
   ingress {
     from_port   = 22
@@ -77,7 +79,8 @@ resource aws_internet_gateway "hashicat" {
 }
 
 resource aws_route_table "hashicat" {
-  vpc_id = aws_vpc.hashicat.id
+  # vpc_id = aws_vpc.hashicat.id
+  vpc_id = module.vpc.vpc_id
 
   route {
     cidr_block = "0.0.0.0/0"
