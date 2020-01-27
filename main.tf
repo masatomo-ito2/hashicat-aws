@@ -3,6 +3,7 @@ provider "aws" {
   region  = var.region
 }
 
+/*
 resource aws_vpc "hashicat" {
   cidr_block           = var.address_space
   enable_dns_hostnames = true
@@ -11,7 +12,8 @@ resource aws_vpc "hashicat" {
     Name = "${var.prefix}-vpc"
   }
 }
-
+*/
+  
 resource aws_subnet "hashicat" {
   vpc_id     = aws_vpc.hashicat.id
   cidr_block = var.subnet_prefix
@@ -24,7 +26,8 @@ resource aws_subnet "hashicat" {
 resource aws_security_group "hashicat" {
   name = "${var.prefix}-security-group"
 
-  vpc_id = aws_vpc.hashicat.id
+  # vpc_id = aws_vpc.hashicat.id
+  vpc_id = module.vpc.id
 
   ingress {
     from_port   = 22
